@@ -63,5 +63,6 @@ android {
 }
 
 dependencies {
+  implementation(project(":nativebox"))
   implementation "com.facebook.react:react-android"
 }
