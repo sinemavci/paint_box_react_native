@@ -35,3 +35,11 @@ MIT
 ---
 
 Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)
+
+cd example/android
+rm -rf .gradle
+rm -rf app/.cxx
+rm -rf build
+./gradlew clean
+./gradlew assembleDebug
+./gradlew generateCodegenArtifactsFromSchema
