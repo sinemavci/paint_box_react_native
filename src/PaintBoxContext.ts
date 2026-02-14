@@ -27,7 +27,6 @@ export class PaintBoxContext {
       if (ref) {
         return this.foundedRef(ref);
       } else {
-        console.log(`hereee: ${this.listOfRef[0]?.ref}`);
         return this.listOfRef[0]?.ref;
       }
     }
@@ -35,13 +34,21 @@ export class PaintBoxContext {
 
   addRef(ref?: PaintBoxContextModel) {
     if (ref) {
-      console.log('ref dadded');
       this.listOfRef.push(ref);
     }
   }
 
-  async clearRef() {
+  async clearRefs() {
     this.listOfRef = [];
+  }
+
+  clearRef(ref: PaintBoxContextModel) {
+    const foundedRef = this.foundedRef(ref);
+    if (!foundedRef) {
+      this.listOfRef = this.listOfRef.filter(
+        (_ref) => ref.ref === _ref.ref && ref.id === _ref.id
+      );
+    }
   }
 
   haveARef(contextModel?: PaintBoxContextModel): boolean {
@@ -49,7 +56,6 @@ export class PaintBoxContext {
   }
 
   private foundedRef(refModel: PaintBoxContextModel) {
-    console.log(`foundedRef ref: ${refModel.ref} id: ${refModel.id}`);
     const foundedRef = this.listOfRef.find(
       (value) => value?.id === refModel?.id || value?.ref === refModel?.ref
     )?.ref;

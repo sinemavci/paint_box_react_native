@@ -1,9 +1,12 @@
 import type { IPaintEditor } from './IPaintEditor';
 import { PaintBoxContext, type PaintBoxContextModel } from './PaintBoxContext';
 import { Commands, type PaintBoxRef } from './PaintBoxViewNativeComponent';
+import { Color, MimeType, PaintMode } from './model';
+import { ColorDTO } from './dto/ColorDTO';
 
 export class PaintEditor implements IPaintEditor {
   private readonly context?: PaintBoxContextModel;
+
   constructor(_context?: PaintBoxContextModel) {
     this.context = _context;
   }
@@ -18,10 +21,7 @@ export class PaintEditor implements IPaintEditor {
 
   undo() {
     const refObj = this._ref();
-    console.log(`undooo: ${refObj?.current}`); //undefined geliyor
-    console.log(`undooo: ${refObj}`); //dolugeliyor
     if (refObj?.current) {
-      console.log('ref hereee');
       Commands.undo(refObj.current);
     }
   }
@@ -33,46 +33,70 @@ export class PaintEditor implements IPaintEditor {
     }
   }
 
-  // reset() {
-  //   NativePaintBoxReactNative.reset(1);
-  // }
-  //
-  // import(path: string, width?: number, height?: number) {
-  //   NativePaintBoxReactNative.importImage(1, path, width, height);
-  // }
-  //
-  // export(path: string, fileName: string, mimeType: string) {
-  //   NativePaintBoxReactNative.export(path, fileName, mimeType, 1);
-  // }
-  //
+  reset() {
+    const refObj = this._ref();
+    if (refObj?.current) {
+      Commands.reset(refObj.current);
+    }
+  }
+
+  import(path: string, width?: number, height?: number) {
+    const refObj = this._ref();
+    if (refObj?.current) {
+      Commands.importImage(refObj?.current, path, width, height);
+    }
+  }
+
+  export(path: string, fileName: string, mimeType: MimeType) {
+    const refObj = this._ref();
+    if (refObj?.current) {
+      Commands.export(refObj?.current, path, fileName, mimeType);
+    }
+  }
+
   // isEnabled(): Promise<boolean> {
   //   return NativePaintBoxReactNative.isEnabled(1);
   // }
   //
-  // setEnabled(value: boolean) {
-  //   NativePaintBoxReactNative.setEnabled(value, 1);
-  // }
-  //
-  // setPaintMode(paintMode: string) {
-  //   NativePaintBoxReactNative.setPaintMode(paintMode, 1);
-  // }
-  //
+  setEnable(value: boolean) {
+    const refObj = this._ref();
+    if (refObj?.current) {
+      Commands.setEnable(refObj?.current, value);
+    }
+  }
+
+  setPaintMode(paintMode: PaintMode) {
+    const refObj = this._ref();
+    if (refObj?.current) {
+      Commands.setPaintMode(refObj?.current, paintMode);
+    }
+  }
+
   // getPaintMode(): Promise<string> {
   //   return NativePaintBoxReactNative.getPaintMode(1);
   // }
   //
-  // setStrokeColor(strokeColor: string) {
-  //   NativePaintBoxReactNative.setStrokeColor(strokeColor, 1);
-  // }
-  //
+  setStrokeColor(strokeColor: Color) {
+    const refObj = this._ref();
+    if (refObj?.current) {
+      Commands.setStrokeColor(
+        refObj?.current,
+        ColorDTO.fromDataModel(strokeColor).toJSONString()
+      );
+    }
+  }
+
   // getStrokeColor() {
   //   return NativePaintBoxReactNative.getStrokeColor(1);
   // }
   //
-  // setStrokeSize(size: number) {
-  //   return NativePaintBoxReactNative.setStrokeSize(size, 1);
-  // }
-  //
+  setStrokeSize(size: number) {
+    const refObj = this._ref();
+    if (refObj?.current) {
+      Commands.setStrokeSize(refObj?.current, size);
+    }
+  }
+
   // getStrokeSize(): Promise<number> {
   //   return NativePaintBoxReactNative.getStrokeSize(1);
   // }

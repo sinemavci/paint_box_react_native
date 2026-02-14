@@ -1,5 +1,5 @@
 import PaintBoxView from './PaintBoxViewNativeComponent';
-import { StyleSheet, View, type ViewProps } from 'react-native';
+import { StatusBar, StyleSheet, View, type ViewProps } from 'react-native';
 import { useEffect, useRef } from 'react';
 import { PaintBoxContext } from './PaintBoxContext';
 //import type { IPaintEditor } from './IPaintEditor';
@@ -17,12 +17,19 @@ export const PaintBoxRNView: React.FC<PaintBoxViewProps> = ({
   children,
 }: PaintBoxViewProps) => {
   const ref = useRef<React.ElementRef<typeof PaintBoxView>>(null);
+  const statusBarHeight = StatusBar.currentHeight;
 
   useEffect(() => {
     PaintBoxContext.getInstance().addRef({
       id: id,
       ref: ref,
     });
+    return () => {
+      PaintBoxContext.getInstance().clearRef({
+        id: id,
+        ref: ref,
+      });
+    };
   }, [id]);
 
   return (
@@ -30,7 +37,8 @@ export const PaintBoxRNView: React.FC<PaintBoxViewProps> = ({
       <View
         style={
           // childrenPosition === 'topLeft'
-          styles.childrenTopLeft
+          // eslint-disable-next-line react-native/no-inline-styles
+          { position: 'absolute', zIndex: 1, top: statusBarHeight, left: 12 }
           // : childrenPosition === 'topRight'
           //   ? styles.childrenTopRight
           //   : childrenPosition === 'bottomLeft'
@@ -52,7 +60,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 'auto',
   },
-  childrenTopLeft: { position: 'absolute', zIndex: 1, top: 6, left: 6 },
+  childrenTopLeft: { position: 'absolute', zIndex: 1, top: 12, left: 12 },
   childrenTopRight: {
     position: 'absolute',
     zIndex: 1,
