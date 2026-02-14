@@ -15,6 +15,8 @@ export type PaintBoxViewProps = {
 export const PaintBoxRNView: React.FC<PaintBoxViewProps> = ({
   id,
   children,
+  style,
+  childrenPosition,
 }: PaintBoxViewProps) => {
   const ref = useRef<React.ElementRef<typeof PaintBoxView>>(null);
   const statusBarHeight = StatusBar.currentHeight;
@@ -33,17 +35,28 @@ export const PaintBoxRNView: React.FC<PaintBoxViewProps> = ({
   }, [id]);
 
   return (
-    <View style={styles.root}>
+    <View style={[styles.root, style]}>
       <View
         style={
-          // childrenPosition === 'topLeft'
-          // eslint-disable-next-line react-native/no-inline-styles
-          { position: 'absolute', zIndex: 1, top: statusBarHeight, left: 12 }
-          // : childrenPosition === 'topRight'
-          //   ? styles.childrenTopRight
-          //   : childrenPosition === 'bottomLeft'
-          //     ? styles.childrenBottomLeft
-          //     : styles.childrenBottomRight
+          childrenPosition === 'topLeft'
+            ? // eslint-disable-next-line react-native/no-inline-styles
+              {
+                position: 'absolute',
+                zIndex: 1,
+                top: statusBarHeight,
+                left: 12,
+              }
+            : childrenPosition === 'topRight'
+            ? // eslint-disable-next-line react-native/no-inline-styles
+              {
+                position: 'absolute',
+                zIndex: 1,
+                top: statusBarHeight,
+                right: 12,
+              }
+            : childrenPosition === 'bottomLeft'
+            ? styles.childrenBottomLeft
+            : styles.childrenBottomRight
         }
       >
         {children}
@@ -64,61 +77,16 @@ const styles = StyleSheet.create({
   childrenTopRight: {
     position: 'absolute',
     zIndex: 1,
-    // top: mapOptions?.viewOptions?.compassVisible
-    //   ? (compassPixel ?? 40) + 8
-    //   : 0,
     right: 6,
   },
   childrenBottomRight: {
     position: 'absolute',
     zIndex: 1,
-    // bottom:
-    //   mapOptions?.viewOptions?.scaleBarViewOptions?.rtl &&
-    //   mapOptions?.viewOptions?.scaleBarVisible &&
-    //   mapOptions?.viewOptions.coordinateInfoVisible
-    //     ? 72
-    //     : !mapOptions?.viewOptions?.scaleBarViewOptions?.rtl &&
-    //     mapOptions?.viewOptions?.scaleBarVisible &&
-    //     mapOptions?.viewOptions.coordinateInfoVisible
-    //       ? 24
-    //       : !mapOptions?.viewOptions?.scaleBarVisible &&
-    //       mapOptions?.viewOptions?.coordinateInfoVisible
-    //         ? 24
-    //         : !mapOptions?.viewOptions?.coordinateInfoVisible &&
-    //         mapOptions?.viewOptions?.scaleBarVisible &&
-    //         mapOptions?.viewOptions.scaleBarViewOptions?.rtl
-    //           ? 72
-    //           : !mapOptions?.viewOptions?.coordinateInfoVisible &&
-    //           mapOptions?.viewOptions?.scaleBarVisible &&
-    //           !mapOptions?.viewOptions.scaleBarViewOptions?.rtl
-    //             ? 6
-    //             : 6,
     right: 6,
   },
   childrenBottomLeft: {
     position: 'absolute',
     zIndex: 1,
-    // bottom:
-    //   !mapOptions?.viewOptions?.scaleBarViewOptions?.rtl &&
-    //   mapOptions?.viewOptions?.scaleBarVisible &&
-    //   mapOptions?.viewOptions.coordinateInfoVisible
-    //     ? 72
-    //     : mapOptions?.viewOptions?.scaleBarViewOptions?.rtl &&
-    //     mapOptions?.viewOptions?.scaleBarVisible &&
-    //     mapOptions?.viewOptions.coordinateInfoVisible
-    //       ? 24
-    //       : !mapOptions?.viewOptions?.scaleBarVisible &&
-    //       mapOptions?.viewOptions?.coordinateInfoVisible
-    //         ? 24
-    //         : !mapOptions?.viewOptions?.coordinateInfoVisible &&
-    //         mapOptions?.viewOptions?.scaleBarVisible &&
-    //         !mapOptions?.viewOptions.scaleBarViewOptions?.rtl
-    //           ? 72
-    //           : !mapOptions?.viewOptions?.coordinateInfoVisible &&
-    //           mapOptions?.viewOptions?.scaleBarVisible &&
-    //           mapOptions?.viewOptions.scaleBarViewOptions?.rtl
-    //             ? 6
-    //             : 6,
     left: 6,
   },
   matchParent: {
