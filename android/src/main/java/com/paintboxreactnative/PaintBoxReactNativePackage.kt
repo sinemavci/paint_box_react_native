@@ -10,25 +10,25 @@ import java.util.HashMap
 
 class PaintBoxReactNativePackage : BaseReactPackage() {
   override fun getModule(name: String, reactContext: ReactApplicationContext): NativeModule? {
-    return null
-//    return (if (name == PaintBoxReactNativeModule.NAME) {
-//      PaintBoxReactNativeModule(reactContext)
-//    } else {
-//      null
-//    }) as NativeModule?
+    return (if (name == PaintBoxReactNativeModule.NAME) {
+      PaintBoxReactNativeModule(reactContext)
+    } else {
+      null
+    }) as NativeModule?
   }
 
   override fun getReactModuleInfoProvider(): ReactModuleInfoProvider {
     return ReactModuleInfoProvider {
       val moduleInfos: MutableMap<String, ReactModuleInfo> = HashMap()
-//      moduleInfos[PaintBoxReactNativeModule.NAME] = ReactModuleInfo(
-//        PaintBoxReactNativeModule.NAME,
-//        PaintBoxReactNativeModule.NAME,
-//        false,  // canOverrideExistingModule
-//        false,  // needsEagerInit
-//        false,  // isCxxModule
-//        true // isTurboModule
-//      )
+      moduleInfos[PaintBoxReactNativeModule.NAME] = ReactModuleInfo(
+        PaintBoxReactNativeModule.NAME,
+        PaintBoxReactNativeModule.NAME,
+        false,  // canOverrideExistingModule
+        false,  // needsEagerInit
+        true,  // isCxxModule
+        false,
+        true,// isTurboModule
+      )
       moduleInfos
     }
   }

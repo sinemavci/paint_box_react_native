@@ -3,6 +3,9 @@ import { PaintBoxContext, type PaintBoxContextModel } from './PaintBoxContext';
 import { Commands, type PaintBoxRef } from './PaintBoxViewNativeComponent';
 import { Color, MimeType, PaintMode } from './model';
 import { ColorDTO } from './dto/ColorDTO';
+import NativePaintBoxReactNative from './NativePaintBoxReactNative';
+import { findNodeHandle } from 'react-native';
+import React from 'react';
 
 export class PaintEditor implements IPaintEditor {
   private readonly context?: PaintBoxContextModel;
@@ -47,17 +50,33 @@ export class PaintEditor implements IPaintEditor {
     }
   }
 
-  export(path: string, fileName: string, mimeType: MimeType) {
+  export(path: string, fileName: string, mimeType: MimeType): void {
     const refObj = this._ref();
     if (refObj?.current) {
-      Commands.export(refObj?.current, path, fileName, mimeType);
+      const viewTag = findNodeHandle(refObj.current);
+
+      // @ts-ignore
+      NativePaintBoxReactNative.export(viewTag, path, mimeType, fileName);
+    } else {
+      throw new Error(
+        'Reference not found! Please ensure that the paint box has been created.'
+      );
     }
   }
 
-  // isEnabled(): Promise<boolean> {
-  //   return NativePaintBoxReactNative.isEnabled(1);
-  // }
-  //
+  isEnable(): Promise<boolean> {
+    const refObj = this._ref();
+    if (refObj?.current) {
+      const viewTag = findNodeHandle(refObj.current);
+      // @ts-ignore
+      return NativePaintBoxReactNative.isEnable(viewTag);
+    } else {
+      throw new Error(
+        'Reference not found! Please ensure that the paint box has been created.'
+      );
+    }
+  }
+
   setEnable(value: boolean) {
     const refObj = this._ref();
     if (refObj?.current) {
@@ -72,10 +91,25 @@ export class PaintEditor implements IPaintEditor {
     }
   }
 
-  // getPaintMode(): Promise<string> {
-  //   return NativePaintBoxReactNative.getPaintMode(1);
-  // }
-  //
+  async getPaintMode(): Promise<PaintMode> {
+    const refObj = this._ref();
+    if (refObj?.current) {
+      const viewTag = findNodeHandle(refObj.current);
+      // @ts-ignore
+      const response = await NativePaintBoxReactNative.getPaintMode(viewTag);
+      const paintMode = Object.values(PaintMode).find((it) => it === response);
+      if (paintMode) {
+        return Promise.resolve(paintMode);
+      } else {
+        return Promise.reject(undefined);
+      }
+    } else {
+      throw new Error(
+        'Reference not found! Please ensure that the paint box has been created.'
+      );
+    }
+  }
+
   setStrokeColor(strokeColor: Color) {
     const refObj = this._ref();
     if (refObj?.current) {
@@ -86,10 +120,20 @@ export class PaintEditor implements IPaintEditor {
     }
   }
 
-  // getStrokeColor() {
-  //   return NativePaintBoxReactNative.getStrokeColor(1);
-  // }
-  //
+  async getStrokeColor(): Promise<Color> {
+    const refObj = this._ref();
+    if (refObj?.current) {
+      const viewTag = findNodeHandle(refObj.current);
+      // @ts-ignore
+      const response = await NativePaintBoxReactNative.getStrokeColor(viewTag);
+      return Promise.resolve(ColorDTO.fromJSON(response).toDataModel());
+    } else {
+      throw new Error(
+        'Reference not found! Please ensure that the paint box has been created.'
+      );
+    }
+  }
+
   setStrokeSize(size: number) {
     const refObj = this._ref();
     if (refObj?.current) {
@@ -97,7 +141,16 @@ export class PaintEditor implements IPaintEditor {
     }
   }
 
-  // getStrokeSize(): Promise<number> {
-  //   return NativePaintBoxReactNative.getStrokeSize(1);
-  // }
+  getStrokeSize(): Promise<number> {
+    const refObj = this._ref();
+    if (refObj?.current) {
+      const viewTag = findNodeHandle(refObj.current);
+      // @ts-ignore
+      return NativePaintBoxReactNative.getStrokeSize(viewTag);
+    } else {
+      throw new Error(
+        'Reference not found! Please ensure that the paint box has been created.'
+      );
+    }
+  }
 }

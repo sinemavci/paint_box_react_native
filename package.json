@@ -110,8 +110,8 @@
     ]
   },
   "codegenConfig": {
-    "name": "PaintBoxView",
-    "type": "components",
+    "name": "PaintBoxReactNativeSpec",
+    "type": "all",
     "jsSrcsDir": "src",
     "android": {
       "javaPackageName": "com.paintboxreactnative"

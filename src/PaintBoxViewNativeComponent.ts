@@ -23,15 +23,6 @@ interface NativeCommands {
     width: Double,
     height: Double
   ) => void;
-  export: (
-    viewRef: React.ElementRef<PaintBoxHostComponent>,
-    path: string,
-    mimeType: string,
-    fileName: string
-  ) => void;
-  // isEnable: (
-  //   viewRef: React.ElementRef<PaintBoxHostComponent>
-  // ) => Promise<boolean>;
   setEnable: (
     viewRef: React.ElementRef<PaintBoxHostComponent>,
     enable: boolean
@@ -40,17 +31,14 @@ interface NativeCommands {
     viewRef: React.ElementRef<PaintBoxHostComponent>,
     paintMode: string
   ) => void;
-  // getPaintMode: (viewRef: React.ElementRef<PaintBoxHostComponent>) => string;
   setStrokeColor: (
     viewRef: React.ElementRef<PaintBoxHostComponent>,
     color: string
   ) => void;
-  // getStrokeColor: (viewRef: React.ElementRef<PaintBoxHostComponent>) => string;
   setStrokeSize: (
     viewRef: React.ElementRef<PaintBoxHostComponent>,
     size: Double
   ) => void;
-  // getStrokeSize: (viewRef: React.ElementRef<PaintBoxHostComponent>) => string;
 }
 
 export const Commands = codegenNativeCommands<NativeCommands>({
@@ -59,15 +47,10 @@ export const Commands = codegenNativeCommands<NativeCommands>({
     'redo',
     'reset',
     'importImage',
-    'export',
-    // 'isEnable',
     'setEnable',
     'setPaintMode',
-    // 'getPaintMode',
     'setStrokeColor',
-    // 'getStrokeColor',
     'setStrokeSize',
-    // 'getStrokeSize',
   ],
 });
 

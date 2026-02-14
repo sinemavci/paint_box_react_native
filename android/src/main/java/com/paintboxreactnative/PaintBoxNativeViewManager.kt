@@ -84,17 +84,6 @@ class PaintBoxNativeViewManager(private val callerContext: ReactApplicationConte
     }
   }
 
-  override fun export(
-    view: PaintBoxNativeView?,
-    path: String?,
-    mimeType: String?,
-    fileName: String?
-  ) {
-    if(path != null && mimeType != null && fileName != null) {
-      view?.paintBox?.paintEditor?.export(path, MimeType.fromValue(mimeType), fileName)
-    }
-  }
-
   override fun setEnable(view: PaintBoxNativeView, enable: Boolean) {
     view.paintBox.paintEditor.setEnable(enable)
   }
