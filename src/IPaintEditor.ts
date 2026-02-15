@@ -1,29 +1,32 @@
 import { Color, PaintMode } from './model';
+import uuid from 'react-native-uuid';
 
-export interface IPaintEditor {
-  undo(): void;
+export abstract class IPaintEditor {
+  id: string | undefined = uuid.v4();
 
-  redo(): void;
+  abstract undo(): void;
 
-  reset(): void;
+  abstract redo(): void;
 
-  import(path: string, width?: number, height?: number): void;
+  abstract reset(): void;
 
-  export(path: string, fileName: string, mimeType: string): void;
+  abstract import(path: string, width?: number, height?: number): void;
 
-  isEnable(): Promise<boolean>;
+  abstract export(path: string, fileName: string, mimeType: string): void;
 
-  setEnable(value: boolean): void;
+  abstract isEnable(): Promise<boolean>;
 
-  setPaintMode(paintMode: PaintMode): void;
+  abstract setEnable(value: boolean): void;
 
-  getPaintMode(): Promise<PaintMode>;
+  abstract setPaintMode(paintMode: PaintMode): void;
 
-  setStrokeColor(strokeColor: Color): void;
+  abstract getPaintMode(): Promise<PaintMode>;
 
-  getStrokeColor(): Promise<Color>;
+  abstract setStrokeColor(strokeColor: Color): void;
 
-  setStrokeSize(size: number): void;
+  abstract getStrokeColor(): Promise<Color>;
 
-  getStrokeSize(): Promise<number>;
+  abstract setStrokeSize(size: number): void;
+
+  abstract getStrokeSize(): Promise<number>;
 }

@@ -2,37 +2,33 @@ import PaintBoxView from './PaintBoxViewNativeComponent';
 import { StatusBar, StyleSheet, View, type ViewProps } from 'react-native';
 import { useEffect, useRef } from 'react';
 import { PaintBoxContext } from './PaintBoxContext';
-//import type { IPaintEditor } from './IPaintEditor';
+import type { IPaintEditor } from './IPaintEditor';
 
 export type PaintBoxViewProps = {
-  //paintEditor: IPaintEditor;
-  id?: string;
+  paintEditor: IPaintEditor;
   style?: ViewProps;
   children?: React.ReactNode;
   childrenPosition?: 'topRight' | 'topLeft' | 'bottomRight' | 'bottomLeft';
 };
 
 export const PaintBoxRNView: React.FC<PaintBoxViewProps> = ({
-  id,
   children,
   style,
   childrenPosition,
+  paintEditor,
 }: PaintBoxViewProps) => {
   const ref = useRef<React.ElementRef<typeof PaintBoxView>>(null);
   const statusBarHeight = StatusBar.currentHeight;
 
   useEffect(() => {
     PaintBoxContext.getInstance().addRef({
-      id: id,
       ref: ref,
+      controller: paintEditor,
     });
     return () => {
-      PaintBoxContext.getInstance().clearRef({
-        id: id,
-        ref: ref,
-      });
+      PaintBoxContext.getInstance().clearRef(paintEditor);
     };
-  }, [id]);
+  }, [paintEditor]);
 
   return (
     <View style={[styles.root, style]}>

@@ -1,6 +1,9 @@
+import type { IPaintEditor } from './IPaintEditor';
+import type { PaintEditor } from './PaintEditor';
+
 export type PaintBoxContextModel = {
-  id?: string;
   ref?: React.RefObject<any> | null;
+  controller?: IPaintEditor;
 };
 
 export class PaintBoxContext {
@@ -16,16 +19,16 @@ export class PaintBoxContext {
     return PaintBoxContext.instance;
   }
 
-  getRef(ref?: PaintBoxContextModel) {
+  getRef(controller?: PaintEditor) {
     if (this.listOfRef.length > 1) {
-      if (ref) {
-        return this.foundedRef(ref);
+      if (controller) {
+        return this.foundedRef(controller);
       } else {
         throw new Error('Ref model must be required!');
       }
     } else {
-      if (ref) {
-        return this.foundedRef(ref);
+      if (controller) {
+        return this.foundedRef(controller);
       } else {
         return this.listOfRef[0]?.ref;
       }
@@ -42,22 +45,18 @@ export class PaintBoxContext {
     this.listOfRef = [];
   }
 
-  clearRef(ref: PaintBoxContextModel) {
+  clearRef(ref: IPaintEditor) {
     const foundedRef = this.foundedRef(ref);
     if (!foundedRef) {
       this.listOfRef = this.listOfRef.filter(
-        (_ref) => ref.ref === _ref.ref && ref.id === _ref.id
+        (model) => ref.id === model.controller?.id
       );
     }
   }
 
-  haveARef(contextModel?: PaintBoxContextModel): boolean {
-    return this.getRef(contextModel) !== undefined;
-  }
-
-  private foundedRef(refModel: PaintBoxContextModel) {
+  private foundedRef(refModel: IPaintEditor) {
     const foundedRef = this.listOfRef.find(
-      (value) => value?.id === refModel?.id || value?.ref === refModel?.ref
+      (value) => value?.controller === refModel
     )?.ref;
     if (foundedRef) {
       return foundedRef;

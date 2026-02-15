@@ -1,5 +1,5 @@
-import type { IPaintEditor } from './IPaintEditor';
-import { PaintBoxContext, type PaintBoxContextModel } from './PaintBoxContext';
+import { IPaintEditor } from './IPaintEditor';
+import { PaintBoxContext } from './PaintBoxContext';
 import { Commands, type PaintBoxRef } from './PaintBoxViewNativeComponent';
 import { Color, MimeType, PaintMode } from './model';
 import { ColorDTO } from './dto/ColorDTO';
@@ -8,15 +8,10 @@ import { findNodeHandle } from 'react-native';
 import React from 'react';
 
 export class PaintEditor implements IPaintEditor {
-  private readonly context?: PaintBoxContextModel;
-
-  constructor(_context?: PaintBoxContextModel) {
-    this.context = _context;
-  }
+  id: string | undefined;
 
   _ref(): React.RefObject<PaintBoxRef> | null | undefined {
-    return (this.context?.ref ??
-      PaintBoxContext.getInstance().getRef(this.context)) as
+    return PaintBoxContext.getInstance().getRef(this) as
       | React.RefObject<PaintBoxRef>
       | null
       | undefined;
