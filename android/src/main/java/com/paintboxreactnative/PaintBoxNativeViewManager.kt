@@ -2,6 +2,7 @@ package com.paintboxreactnative
 
 import android.graphics.Color
 import android.os.Build
+import android.util.Log
 import android.widget.FrameLayout
 import androidx.annotation.RequiresApi
 import com.facebook.react.bridge.ReactApplicationContext
@@ -13,7 +14,6 @@ import com.facebook.react.uimanager.ViewManagerDelegate
 import com.facebook.react.viewmanagers.PaintBoxViewManagerDelegate
 import com.facebook.react.viewmanagers.PaintBoxViewManagerInterface
 import com.google.gson.Gson
-import com.kotlin.native_drawing_plugin.MimeType
 import com.kotlin.native_drawing_plugin.PaintMode
 import com.paintboxreactnative.dto.ColorDTO
 
@@ -79,8 +79,20 @@ class PaintBoxNativeViewManager(private val callerContext: ReactApplicationConte
     width: Double,
     height: Double
   ) {
-    if(path != null) {
-      view?.paintBox?.paintEditor?.import(path, width, height)
+    if (path != null) {
+      Log.e("import image path exist", "import image path exist: ${path}")
+      val _width = if (width != -1.0) {
+        width
+      } else {
+        null
+      }
+      val _height = if (height != -1.0) {
+        height
+      } else {
+        null
+      }
+      Log.e("import image path exist", "import image path exist: ${_width} ${_height}")
+      view?.paintBox?.paintEditor?.import(path, _width, _height)
     }
   }
 
@@ -96,9 +108,11 @@ class PaintBoxNativeViewManager(private val callerContext: ReactApplicationConte
   }
 
   override fun setStrokeColor(view: PaintBoxNativeView?, color: String?) {
-    if(color != null) {
-      val color = Gson().fromJson(color, ColorDTO::class.java).toDataModel()
-      view?.paintBox?.paintEditor?.setStrokeColor(color)
+    Log.e("color: ", "setStrokeColor: ${color}")
+    if (color != null) {
+      val colorDTO = Gson().fromJson(color, ColorDTO::class.java)
+      val _color = colorDTO.toDataModel()
+      view?.paintBox?.paintEditor?.setStrokeColor(_color)
     }
   }
 

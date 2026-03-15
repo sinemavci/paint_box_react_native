@@ -2,7 +2,7 @@ export class Color {
   red: number;
   green: number;
   blue: number;
-  alpha?: number = 0.0;
+  alpha?: number = 255.0;
 
   constructor(red: number, green: number, blue: number, alpha?: number) {
     this.red = red;

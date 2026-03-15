@@ -14,6 +14,7 @@ class PaintBoxReactNativeModule(val reactContext: ReactApplicationContext) :
 
   override fun export(viewTag: Double?, path: String?, fileName: String?, mimeType: String?, promise: Promise) {
     if (viewTag != null) {
+
       NativeViewHandler.resolve(reactContext, viewTag.toInt(), { paintBoxView: PaintBoxNativeView ->
         if (path != null && mimeType != null) {
           paintBoxView.paintBox.paintEditor.export(path, MimeType.fromValue(mimeType), fileName)

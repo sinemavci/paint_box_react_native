@@ -41,7 +41,7 @@ export class PaintEditor implements IPaintEditor {
   import(path: string, width?: number, height?: number) {
     const refObj = this._ref();
     if (refObj?.current) {
-      Commands.importImage(refObj?.current, path, width, height);
+      Commands.importImage(refObj?.current, path, width ?? -1, height ?? -1);
     }
   }
 
@@ -51,7 +51,7 @@ export class PaintEditor implements IPaintEditor {
       const viewTag = findNodeHandle(refObj.current);
 
       // @ts-ignore
-      NativePaintBoxReactNative.export(viewTag, path, mimeType, fileName);
+      NativePaintBoxReactNative.export(viewTag, path, fileName, mimeType);
     } else {
       throw new Error(
         'Reference not found! Please ensure that the paint box has been created.'
@@ -107,10 +107,11 @@ export class PaintEditor implements IPaintEditor {
 
   setStrokeColor(strokeColor: Color) {
     const refObj = this._ref();
+    console.log("heree:", JSON.stringify(ColorDTO.fromDataModel(strokeColor).toJSON()));
     if (refObj?.current) {
       Commands.setStrokeColor(
         refObj?.current,
-        ColorDTO.fromDataModel(strokeColor).toJSONString()
+        JSON.stringify(ColorDTO.fromDataModel(strokeColor).toJSON())
       );
     }
   }

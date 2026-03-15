@@ -44,17 +44,6 @@ project.xcworkspace
 local.properties
 android.iml
 
-# Cocoapods
-#
-example/ios/Pods
-
-# Ruby
-example/vendor/
-example/node_modules/
-
-example/android/app/build
-example/android/app/.cxx
-
 # node.js
 #
 node_modules/

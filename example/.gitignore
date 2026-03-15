@@ -1,0 +1,9 @@
+android/app/.cxx
+android/.gradle
+android/.idea
+android/app/build
+node_modules
+vendor
+ios/Pods
+nativebox/build
+android/build

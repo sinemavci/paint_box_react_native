@@ -10,8 +10,16 @@
     "build:ios": "react-native build-ios --mode Debug"
   },
   "dependencies": {
+    "@react-native-community/slider": "^5.1.2",
+    "@react-native-vector-icons/material-design-icons": "^12.4.0",
     "react": "19.2.0",
-    "react-native": "0.83.0"
+    "react-native": "0.83.0",
+    "react-native-fs": "^2.20.0",
+    "react-native-image-picker": "^8.2.1",
+    "react-native-paper": "^5.15.0",
+    "react-native-popover-view": "^6.1.0",
+    "react-native-safe-area-context": "^5.6.2",
+    "react-native-vector-icons": "^10.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
@@ -23,6 +31,7 @@
     "@react-native/babel-preset": "0.83.0",
     "@react-native/metro-config": "0.83.0",
     "@react-native/typescript-config": "0.83.0",
+    "@types/add": "^2",
     "@types/react": "^19.2.0",
     "react-native-builder-bob": "^0.40.13",
     "react-native-monorepo-config": "^0.3.1"

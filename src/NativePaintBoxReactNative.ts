@@ -12,8 +12,8 @@ export interface Spec extends TurboModule {
   export: (
     viewTag: number | null,
     path: string,
+    fileName: string,
     mimeType: string,
-    fileName: string
   ) => Promise<string>;
 }
 
