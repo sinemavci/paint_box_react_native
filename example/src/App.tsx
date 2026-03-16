@@ -160,7 +160,7 @@ export default function App() {
                 <Pressable key={i} onPress={async () => {
                   setSelectedColor(c);
                   const mapraysColor = hexToRgb(c);
-                  await paintEditor1.setStrokeColor(new Color(mapraysColor.red, mapraysColor.green, mapraysColor.blue, 180));
+                  await paintEditor1.setStrokeColor(new Color(mapraysColor.red, mapraysColor.green, mapraysColor.blue));
                 }
                 } >
                   <Icon
@@ -196,6 +196,7 @@ export default function App() {
               <View>
                 <Icon
                   name="format-line-weight"
+                  color={selectedColor}
                   size={32}
                   onPress={async () => {
                     setStrokeWidthShowPopover(true);

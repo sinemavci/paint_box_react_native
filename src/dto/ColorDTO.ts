@@ -5,7 +5,7 @@ export class ColorDTO extends BaseDTO {
   red: number;
   green: number;
   blue: number;
-  alpha?: number;
+  alpha?: number = 255.0;
 
   constructor(red: number, green: number, blue: number, alpha?: number) {
     super();

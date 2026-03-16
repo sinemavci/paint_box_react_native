@@ -108,10 +108,10 @@ class PaintBoxNativeViewManager(private val callerContext: ReactApplicationConte
   }
 
   override fun setStrokeColor(view: PaintBoxNativeView?, color: String?) {
-    Log.e("color: ", "setStrokeColor: ${color}")
     if (color != null) {
       val colorDTO = Gson().fromJson(color, ColorDTO::class.java)
       val _color = colorDTO.toDataModel()
+      Log.e("color: ", "setStrokeColor: ${_color.alpha()}")
       view?.paintBox?.paintEditor?.setStrokeColor(_color)
     }
   }
