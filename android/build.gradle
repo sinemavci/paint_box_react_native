@@ -66,4 +66,5 @@ dependencies {
   implementation(project(":nativebox"))
   implementation("com.google.code.gson:gson:2.13.2")
   implementation "com.facebook.react:react-android"
+  implementation("io.github.beyka:Android-TiffBitmapFactory:0.9.9.1")
 }
