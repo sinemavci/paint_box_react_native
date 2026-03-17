@@ -5,5 +5,5 @@ android/app/build
 node_modules
 vendor
 ios/Pods
-nativebox/build
+android/nativebox/build
 android/build

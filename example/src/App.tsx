@@ -248,7 +248,7 @@ export default function App() {
                 }, async response => {
                   if (response.assets?.length !== 0) {
                     console.log("assets", response.assets![0]!.uri!!);
-                    paintEditor1.import(response.assets![0]!.uri!!.replace("file://", ""), 600, 800);
+                    paintEditor1.import(response.assets![0]!.uri!!.replace("file://", ""), 500, 500);
                     console.log(response.assets?.[0]);
                   }
                 });
@@ -471,7 +471,7 @@ export default function App() {
                   selectionLimit: 1,
                 }, async response => {
                   if (response.assets?.length !== 0) {
-                    paintEditor2.import(response.assets![0]!.uri!!.replace("file://", ""), 600, 800);
+                    paintEditor2.import(response.assets![0]!.uri!!.replace("file://", ""));
                   }
                 });
               }}
