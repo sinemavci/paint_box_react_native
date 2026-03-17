@@ -1,14 +1,11 @@
 package com.paintboxreactnative
 
-import android.graphics.Color
 import android.os.Build
 import android.util.Log
 import android.widget.FrameLayout
 import androidx.annotation.RequiresApi
 import com.facebook.react.bridge.ReactApplicationContext
-import com.facebook.react.uimanager.ReactStylesDiffMap
 import com.facebook.react.uimanager.SimpleViewManager
-import com.facebook.react.uimanager.StateWrapper
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.ViewManagerDelegate
 import com.facebook.react.viewmanagers.PaintBoxViewManagerDelegate
@@ -26,25 +23,6 @@ class PaintBoxNativeViewManager(private val callerContext: ReactApplicationConte
     return PaintBoxNativeView(context).apply {
       isClickable = true
       isFocusable = true
-      setBackgroundColor(Color.RED)
-      layoutParams = FrameLayout.LayoutParams(
-        FrameLayout.LayoutParams.MATCH_PARENT,
-        FrameLayout.LayoutParams.MATCH_PARENT
-      )
-    }
-  }
-
-  override fun createViewInstance(
-    reactTag: Int,
-    reactContext: ThemedReactContext,
-    initialProps: ReactStylesDiffMap?,
-    stateWrapper: StateWrapper?
-  ): PaintBoxNativeView {
-
-    return PaintBoxNativeView(reactContext).apply {
-      isClickable = true
-      isFocusable = true
-      setBackgroundColor(Color.RED)
       layoutParams = FrameLayout.LayoutParams(
         FrameLayout.LayoutParams.MATCH_PARENT,
         FrameLayout.LayoutParams.MATCH_PARENT

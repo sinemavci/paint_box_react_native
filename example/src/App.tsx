@@ -2,7 +2,7 @@ import { PaintBoxRNView, PaintEditor } from 'paint_box_react_native';
 import { Pressable, StatusBar, StyleSheet, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Popover from 'react-native-popover-view';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Placement } from 'react-native-popover-view/dist/Types';
 import { IconButton, PaperProvider, Snackbar, Text, Button } from 'react-native-paper';
 import { PaperDropdown } from './component/PaperDropdown';
@@ -80,16 +80,6 @@ export default function App() {
     visible: false,
     message: '',
   });
-
-  useEffect(() => {
-    paintEditor1.isEnable().then((val) => {
-      if (val) {
-        paintEditor1.getStrokeSize().then((size) => {
-          setStrokeWidth1(size);
-        });
-      }
-    });
-  }, [paintEditor1]);
 
   return (
     <PaperProvider>
@@ -311,11 +301,18 @@ export default function App() {
           </View>
           <PaintBoxRNView
             paintEditor={paintEditor1}
-          // onPaintBoxReady={async () => {
-          //   paintEditor1.isEnable().then((val) => {
-          //     console.log('isEnabled 1', val);
-          //   });
-          // }}
+            onPaintBoxReady={async () => {
+              paintEditor1.isEnable().then((val) => {
+                if (val) {
+                  paintEditor1.getStrokeSize().then((size) => {
+                    setStrokeWidth1(size);
+                  });
+                  paintEditor1.getPaintMode().then((mode) => {
+                    setPaintMode1(mode);
+                  });
+                }
+              });
+            }}
           />
         </View>
         <View style={styles.container}>
@@ -449,13 +446,13 @@ export default function App() {
             >
               <View style={{ width: 140, justifyContent: 'center', flexDirection: 'row' }}>
                 <IconButton icon={'minus'} onPress={() => {
-                  const newSize = strokeWidth1 - 1;
+                  const newSize = strokeWidth2 - 1;
                   setStrokeWidth2(newSize);
                   paintEditor2.setStrokeSize(newSize);
                 }} />
-                <Text style={{ alignSelf: 'center', marginHorizontal: 8 }}>{strokeWidth1}</Text>
+                <Text style={{ alignSelf: 'center', marginHorizontal: 8 }}>{strokeWidth2}</Text>
                 <IconButton icon={'plus'} onPress={() => {
-                  const newSize = strokeWidth1 + 1;
+                  const newSize = strokeWidth2 + 1;
                   setStrokeWidth2(newSize);
                   paintEditor2.setStrokeSize(newSize);
                 }} />
@@ -533,11 +530,18 @@ export default function App() {
           </View>
           <PaintBoxRNView
             paintEditor={paintEditor2}
-          // onPaintBoxReady={async () => {
-          //   paintEditor1.isEnable().then((val) => {
-          //     console.log('isEnabled 1', val);
-          //   });
-          // }}
+            onPaintBoxReady={async () => {
+              paintEditor2.isEnable().then((val) => {
+                if (val) {
+                  paintEditor2.getStrokeSize().then((size) => {
+                    setStrokeWidth2(size);
+                  });
+                  paintEditor2.getPaintMode().then((mode) => {
+                    setPaintMode2(mode);
+                  });
+                }
+              });
+            }}
           />
           <Snackbar
             duration={3000}

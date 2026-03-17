@@ -8,6 +8,7 @@ export type PaintBoxViewProps = {
   paintEditor: IPaintEditor;
   style?: ViewProps;
   children?: React.ReactNode;
+  onPaintBoxReady?: () => void;
   childrenPosition?: 'topRight' | 'topLeft' | 'bottomRight' | 'bottomLeft';
 };
 
@@ -16,6 +17,7 @@ export const PaintBoxRNView: React.FC<PaintBoxViewProps> = ({
   style,
   childrenPosition,
   paintEditor,
+  onPaintBoxReady,
 }: PaintBoxViewProps) => {
   const ref = useRef<React.ElementRef<typeof PaintBoxView>>(null);
   const statusBarHeight = StatusBar.currentHeight;
@@ -36,29 +38,33 @@ export const PaintBoxRNView: React.FC<PaintBoxViewProps> = ({
         style={
           childrenPosition === 'topLeft'
             ? // eslint-disable-next-line react-native/no-inline-styles
-              {
-                position: 'absolute',
-                zIndex: 1,
-                top: statusBarHeight,
-                left: 12,
-              }
+            {
+              position: 'absolute',
+              zIndex: 1,
+              top: statusBarHeight,
+              left: 12,
+            }
             : childrenPosition === 'topRight'
-            ? // eslint-disable-next-line react-native/no-inline-styles
+              ? // eslint-disable-next-line react-native/no-inline-styles
               {
                 position: 'absolute',
                 zIndex: 1,
                 top: statusBarHeight,
                 right: 12,
               }
-            : childrenPosition === 'bottomLeft'
-            ? styles.childrenBottomLeft
-            : styles.childrenBottomRight
+              : childrenPosition === 'bottomLeft'
+                ? styles.childrenBottomLeft
+                : styles.childrenBottomRight
         }
       >
         {children}
       </View>
       {/* eslint-disable-next-line react-native/no-inline-styles */}
-      <PaintBoxView ref={ref} style={{ flex: 1 }} />
+      <PaintBoxView ref={ref} style={{ flex: 1 }} onPaintBoxReady={(result) => {
+        if (result.nativeEvent.result === true) {
+          onPaintBoxReady?.();
+        }
+      }} />
     </View>
   );
 };

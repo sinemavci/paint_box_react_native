@@ -5,9 +5,15 @@ import {
 } from 'react-native';
 import { codegenNativeComponent } from 'react-native';
 // @ts-ignore
-import type { Double } from 'react-native/Libraries/Types/CodegenTypes';
+import type { DirectEventHandler, Double, Int32 } from 'react-native/Libraries/Types/CodegenTypes';
 
-export interface NativeProps extends ViewProps {}
+type PaintBoxReadyEvent = {
+  result : boolean;
+}
+
+export interface NativeProps extends ViewProps {
+  onPaintBoxReady?: DirectEventHandler<PaintBoxReadyEvent>;
+}
 
 export type PaintBoxHostComponent = HostComponent<NativeProps>;
 
