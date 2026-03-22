@@ -55,3 +55,43 @@ paintEditor.redo();
 ```js
 paintEditor.reset();
 ```
+
+#### Import
+//width and height not required
+```js
+paintEditor.import(path, width, height);
+```
+
+#### Export
+mimetypes >>  jpeg,png,gif,tif,bmp,pdf
+```js
+paintEditor.export(path, fileName, mimeType);
+```
+
+
+#### Enable
+
+```js
+const enable = await paintEditor.isEnable();
+paintEditor.setEnable(false);
+```
+
+
+#### Paint Mode
+paintModes >> Pen, Marker, Bucket, Brush, Eraser
+```js
+const paintMode = await paintEditor.getPaintMode();
+paintEditor.setPaintMode(PaintMode.ERASER);
+```
+
+#### Stroke Color
+```js
+const strokeColor = await paintEditor.getStrokeColor();
+paintEditor.setStrokeColor(new Color(11, 23, 122));
+```
+
+#### Stroke Size
+```js
+const strokeSize = await paintEditor.getStrokeSize();
+paintEditor.setStrokeSize(14);
+```
