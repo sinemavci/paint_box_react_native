@@ -150,7 +150,7 @@ setStrokeSize(size: number): void
 | onPaintBoxReady | () => void  | ❌        | Called when canvas is ready |
 
 ## Best Practices
-. Always create one PaintEditor per PaintBox
-. Wait for onPaintBoxReady before calling methods
-. Avoid very large stroke sizes (performance impact)
+- Always create one PaintEditor per PaintBox
+- Wait for onPaintBoxReady before calling methods
+- Avoid very large stroke sizes (performance impact)
 
