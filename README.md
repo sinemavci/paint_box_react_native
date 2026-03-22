@@ -142,3 +142,16 @@ class Color {
 getStrokeSize(): Promise<number>
 setStrokeSize(size: number): void
 ```
+
+## ⚙️ Component Props
+<PaintBoxRNView />
+| Prop            | Type        | Required | Description                 |
+| --------------- | ----------- | -------- | --------------------------- |
+| paintEditor     | PaintEditor | ✅        | Controller instance         |
+| onPaintBoxReady | () => void  | ❌        | Called when canvas is ready |
+
+## Best Practices
+. Always create one PaintEditor per PaintBox
+. Wait for onPaintBoxReady before calling methods
+. Avoid very large stroke sizes (performance impact)
+
