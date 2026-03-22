@@ -144,7 +144,6 @@ setStrokeSize(size: number): void
 ```
 
 ## ⚙️ Component Props
-<PaintBoxRNView />
 | Prop            | Type        | Required | Description                 |
 | --------------- | ----------- | -------- | --------------------------- |
 | paintEditor     | PaintEditor | ✅        | Controller instance         |
