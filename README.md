@@ -1,8 +1,8 @@
-# paint_box_react_native
+# 🎨 paint_box_react_native
 
---
+paint_box_react_native is a lightweight drawing component for React Native that allows users to draw on a canvas with customizable brush settings.
 
-## Installation
+## ⚙️ Installation
 
 
 ```sh
@@ -10,15 +10,29 @@ npm install paint_box_react_native
 ```
 
 
-## Usage
+## 🚀 Usage
 
 
 ```js
-import { multiply } from 'paint_box_react_native';
+import { PaintBoxRNView, PaintEditor } from 'paint_box_react_native';
 
 // ...
 
-const result = multiply(3, 7);
+<PaintBoxRNView
+  paintEditor={paintEditor1}
+  onPaintBoxReady={async () => {
+  paintEditor1.isEnable().then((val) => {
+    if (val) {
+        paintEditor1.getStrokeSize().then((size) => {
+          setStrokeWidth1(size);
+        });
+        paintEditor1.getPaintMode().then((mode) => {
+          setPaintMode1(mode);
+        });
+    }
+  });
+}}
+/>
 ```
 
 
@@ -27,19 +41,3 @@ const result = multiply(3, 7);
 - [Development workflow](CONTRIBUTING.md#development-workflow)
 - [Sending a pull request](CONTRIBUTING.md#sending-a-pull-request)
 - [Code of conduct](CODE_OF_CONDUCT.md)
-
-## License
-
-MIT
-
----
-
-Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)
-
-cd example/android
-rm -rf .gradle
-rm -rf app/.cxx
-rm -rf build
-./gradlew clean
-./gradlew assembleDebug
-./gradlew generateCodegenArtifactsFromSchema
