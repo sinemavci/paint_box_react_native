@@ -38,19 +38,19 @@ import { PaintBoxRNView, PaintEditor } from 'paint_box_react_native';
 
 ## Api Reference
 
-### Undo
+#### Undo
 
 ```js
 paintEditor.undo();
 ```
 
-### Redo
+#### Redo
 
 ```js
 paintEditor.redo();
 ```
 
-### Reset
+#### Reset
 
 ```js
 paintEditor.reset();
