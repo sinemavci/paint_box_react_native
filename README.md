@@ -1,18 +1,12 @@
 # 🎨 paint_box_react_native
-
 paint_box_react_native is a lightweight drawing component for React Native that allows users to draw on a canvas with customizable brush settings.
 
 ## ⚙️ Installation
-
-
 ```sh
 npm install paint_box_react_native
 ```
 
-
 ## 🚀 Usage
-
-
 ```js
 import { PaintBoxRNView, PaintEditor } from 'paint_box_react_native';
 
@@ -38,60 +32,113 @@ import { PaintBoxRNView, PaintEditor } from 'paint_box_react_native';
 
 ## Api Reference
 
+#### 🧠 Core Concepts
+PaintEditor
+
+PaintEditor is the controller object used to interact with a specific PaintBoxRNView instance.
+
+Each PaintBoxRNView must have its own PaintEditor instance.
+
+#### ⚠️ Multiple PaintBox Support
+You can use multiple paint boxes independently:
+
+```js
+const paintEditor1 = new PaintEditor();
+const paintEditor2 = new PaintEditor();
+```
+
+```js
+<PaintBoxRNView paintEditor={paintEditor1} />
+<PaintBoxRNView paintEditor={paintEditor2} />
+```
+
 #### Undo
+Reverts the last drawing action.
 
 ```js
 paintEditor.undo();
 ```
 
 #### Redo
+Restores the last undone action.
 
 ```js
 paintEditor.redo();
 ```
 
 #### Reset
+Clears the entire canvas.
 
 ```js
 paintEditor.reset();
 ```
 
 #### Import
-//width and height not required
+| Param  | Type   | Required | Description     |
+| ------ | ------ | -------- | --------------- |
+| path   | string | ✅        | Image file path |
+| width  | number | ❌        | Target width    |
+| height | number | ❌        | Target height   |
+
 ```js
-paintEditor.import(path, width, height);
+import(path: string, width?: number, height?: number): Promise<void>
 ```
 
 #### Export
-mimetypes >>  jpeg,png,gif,tif,bmp,pdf
 ```js
-paintEditor.export(path, fileName, mimeType);
+export(path: string, fileName: string, mimeType: MimeType): Promise<string>
 ```
+
+```js
+type MimeType = "jpeg" | "png" | "gif" | "tif" | "bmp" | "pdf";
+```
+
+| Param    | Type     | Required | Description                 |
+| -------- | -------- | -------- | --------------------------- |
+| path     | string   | ✅        | Output directory path       |
+| fileName | string   | ✅        | File name without extension |
+| mimeType | MimeType | ✅        | Output format               |
 
 
 #### Enable
-
 ```js
-const enable = await paintEditor.isEnable();
-paintEditor.setEnable(false);
+isEnable(): Promise<boolean>
+setEnable(value: boolean): void
 ```
 
 
-#### Paint Mode
-paintModes >> Pen, Marker, Bucket, Brush, Eraser
+#### 🎨 Paint Mode
 ```js
-const paintMode = await paintEditor.getPaintMode();
-paintEditor.setPaintMode(PaintMode.ERASER);
+enum PaintMode {
+  PEN = "Pen",
+  MARKER = "Marker",
+  BUCKET = "Bucket",
+  BRUSH = "Brush",
+  ERASER = "Eraser"
+}
 ```
 
-#### Stroke Color
 ```js
-const strokeColor = await paintEditor.getStrokeColor();
-paintEditor.setStrokeColor(new Color(11, 23, 122));
+getPaintMode(): Promise<PaintMode>
+setPaintMode(mode: PaintMode): void
+```
+
+#### 🌈 Stroke Color
+```js
+getStrokeColor(): Promise<Color>
+setStrokeColor(color: Color): void
+```
+
+Color Definition
+
+```js
+class Color {
+  constructor(r: number, g: number, b: number)
+}
 ```
 
 #### Stroke Size
 ```js
-const strokeSize = await paintEditor.getStrokeSize();
-paintEditor.setStrokeSize(14);
+getStrokeSize(): Promise<number>
+setStrokeSize(size: number): void
 ```
