@@ -1,7 +1,7 @@
 # 🎨 paint_box_react_native
 
 <p align="center">
-  <img src="./assets/demo.gif" width="300" />
+  <img src="./assets/demo.gif" width="200" />
 </p>
 
 paint_box_react_native is a lightweight drawing component for React Native that allows users to draw on a canvas with customizable brush settings.
